@@ -1,7 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
+const { PrismaBetterSqlite3 } = require("@prisma/adapter-better-sqlite3");
 const bcrypt = require("bcryptjs");
 
-const prisma = new PrismaClient();
+const adapter = new PrismaBetterSqlite3({
+  url: process.env.DATABASE_URL || "file:./dev.db",
+});
+
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   await prisma.booking.deleteMany();
@@ -59,7 +64,7 @@ async function main() {
     data: {
       title: "Node.js Workshop",
       description: "Learn backend development with Node.js and Express.",
-      dateTime: new Date("2026-04-15T14:00:00.000Z"),
+      dateTime: new Date("2026-07-15T14:00:00.000Z"),
       capacity: 3,
       organiserId: organiser1.id,
     },
@@ -69,7 +74,7 @@ async function main() {
     data: {
       title: "Prisma Bootcamp",
       description: "Introduction to Prisma ORM and relational modelling.",
-      dateTime: new Date("2026-04-20T10:00:00.000Z"),
+      dateTime: new Date("2026-07-20T10:00:00.000Z"),
       capacity: 5,
       organiserId: organiser1.id,
     },
@@ -79,7 +84,7 @@ async function main() {
     data: {
       title: "JWT Security Seminar",
       description: "Understanding authentication and authorization.",
-      dateTime: new Date("2026-04-25T16:30:00.000Z"),
+      dateTime: new Date("2026-07-25T16:30:00.000Z"),
       capacity: 4,
       organiserId: organiser2.id,
     },
@@ -108,7 +113,7 @@ async function main() {
 
   console.log("Seed completed successfully");
   console.log("Test organiser login: organiser1@example.com / 123456");
-  console.log("Test attendee login: attendee1@example.com / 123456");
+  console.log("Test attendee login:   attendee1@example.com / 123456");
 }
 
 main()

@@ -156,7 +156,11 @@ exports.getEventById = async (eventId) => {
     throw new AppError("Event not found", 404);
   }
 
-  return event;
+  return {
+    ...event,
+    ticketsSold: event._count.bookings,
+    remainingCapacity: event.capacity - event._count.bookings,
+  };
 };
 
 exports.updateEvent = async (eventId, data, organiserId) => {

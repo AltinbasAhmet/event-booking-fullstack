@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+event-booking-frontend/node_modules
+event-booking-backend/node_modules
+
+# Next.js build output
+.next
+event-booking-frontend/.next
+
+# Environment files
+.env
+.env.local
+event-booking-frontend/.env.local
+event-booking-backend/.env
+
+# SQLite database
+dev.db
+event-booking-backend/dev.db
+event-booking-backend/dev.db-journal
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
