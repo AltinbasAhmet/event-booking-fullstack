@@ -9,9 +9,14 @@ const adapter = new PrismaBetterSqlite3({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  await prisma.booking.deleteMany();
-  await prisma.event.deleteMany();
-  await prisma.user.deleteMany();
+  // Check if database already has data — if so, skip seeding
+  const existingUsers = await prisma.user.count();
+  if (existingUsers > 0) {
+    console.log("Database already has data. Skipping seed.");
+    return;
+  }
+
+  console.log("Database is empty. Seeding sample data...");
 
   const hashedPassword = await bcrypt.hash("123456", 10);
 
@@ -111,7 +116,7 @@ async function main() {
     },
   });
 
-  console.log("Seed completed successfully");
+  console.log("Seed completed successfully.");
   console.log("Test organiser login: organiser1@example.com / 123456");
   console.log("Test attendee login:   attendee1@example.com / 123456");
 }
